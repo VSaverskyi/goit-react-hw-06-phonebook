@@ -1,58 +1,73 @@
-import React, {useState, useEffect} from "react";
+// import React, {useState, useEffect} from "react";
 import { Container, ContactsWrapper } from "./App.styled";
 import ContactForm from "components/ContactForm/ContactForm";
 import { nanoid } from "nanoid";
 import ContactList from "components/ContactList/ContactList";
 import Filter from "components/Filter/Filter";
+import { useDispatch, useSelector } from "react-redux";
+import { add } from "redux/contacts/slice";
 
 const App = () => {
-  const [contacts, setContacts] = useState(getFromLocalStorage('savedContacts') || []);
-  const [filter, setFilter] = useState('');
-
-  function setToLocalStorage(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  function getFromLocalStorage(key) {
-    try {
-      return JSON.parse(localStorage.getItem(key));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  
-  const handleFilterChange = e => {
-    setFilter(e.target.value);
-  };
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
 
   const handleSubmit = (name, number) => {
     if (contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
       return alert(name + ' is already in contacts.');
     }
-     
-    setContacts((prevContacts) => {
-      return prevContacts.concat({ name, number, id: nanoid() })
-    }
-    );
-  };
 
-  const handleDeleteBtnClick = id => {
-    setContacts((prevContacts) => {
-      return prevContacts.filter((item) => item.id !== id)
-    })
-  };
+    dispatch(add({ name, number, id: nanoid() }));
+  }
+
+
+  // const [contacts, setContacts] = useState(getFromLocalStorage('savedContacts') || []);
+  // const [filter, setFilter] = useState('');
+
+  // function setToLocalStorage(key, value) {
+  //   try {
+  //     localStorage.setItem(key, JSON.stringify(value));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // function getFromLocalStorage(key) {
+  //   try {
+  //     return JSON.parse(localStorage.getItem(key));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  
+  // const handleFilterChange = e => {
+  //   setFilter(e.target.value);
+  // };
+
+  // const handleSubmit = (name, number) => {
+    // if (contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
+    //   return alert(name + ' is already in contacts.');
+    // }
+     
+  //   setContacts((prevContacts) => {
+  //     return prevContacts.concat({ name, number, id: nanoid() })
+  //   }
+  //   );
+  // };
+
+  // const handleDeleteBtnClick = id => {
+  //   setContacts((prevContacts) => {
+  //     return prevContacts.filter((item) => item.id !== id)
+  //   })
+  // };
 
   const checkIncludesFilterInArray = item => {
     return item.name.toLowerCase().includes(filter.toLowerCase());
   };
 
-  useEffect(() => {
-    setToLocalStorage('savedContacts', contacts);
-  }, [contacts]);
+  // useEffect(() => {
+  //   setToLocalStorage('savedContacts', contacts);
+  // }, [contacts]);
 
   return (
     <Container>
@@ -62,11 +77,11 @@ const App = () => {
       {contacts.length !== 0 && 
         <ContactsWrapper>
         <h2>Contacts</h2>
-        <Filter filter={filter} onChange={handleFilterChange}/>
-          <ContactList
-            contactsFilter={contacts.filter(checkIncludesFilterInArray)}
-            onDeleteBtnClick={handleDeleteBtnClick}
-          />
+        {/* <Filter filter={filter} onChange={handleFilterChange}/> */}
+        <ContactList
+          contactsFilter={contacts.filter(checkIncludesFilterInArray)}
+          // onDeleteBtnClick={handleDeleteBtnClick}
+        />
       </ContactsWrapper>
       }
     </Container>
