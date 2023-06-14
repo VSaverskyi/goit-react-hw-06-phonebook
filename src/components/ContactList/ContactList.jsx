@@ -3,12 +3,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ContactListWrapper } from "./ContactList.styled";
 
-const ContactList = ({contactsFilter, onDeleteBtnClick}) => {  
+const ContactList = ({contactsFilter}) => {  
     return (
         <ContactListWrapper>
-            {contactsFilter.length === 0 ? (<li>Contact don`t find</li>) : (contactsFilter
+            {contactsFilter.length === 0 ? (<li>Contacts not find</li>) : (contactsFilter
             .map((item) => (
-                <ContactListItem key={item.id} item={item} onDeleteBtn={onDeleteBtnClick}/>
+                <ContactListItem key={item.id} item={item}/>
             )))}
         </ContactListWrapper>
     )
@@ -22,5 +22,4 @@ ContactList.propTypes = {
         number: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
     })),
-    // onDeleteBtnClick: PropTypes.func.isRequired,
 }

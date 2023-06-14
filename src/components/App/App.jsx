@@ -11,7 +11,6 @@ const App = () => {
 
 
   // const [contacts, setContacts] = useState(getFromLocalStorage('savedContacts') || []);
-  // const [filter, setFilter] = useState('');
 
   // function setToLocalStorage(key, value) {
   //   try {
@@ -28,26 +27,11 @@ const App = () => {
   //     console.log(err);
   //   }
   // };
-  
-  // const handleFilterChange = e => {
-  //   setFilter(e.target.value);
-  // };
-
-  // const handleSubmit = (name, number) => {
-    // if (contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
-    //   return alert(name + ' is already in contacts.');
-    // }
      
   //   setContacts((prevContacts) => {
   //     return prevContacts.concat({ name, number, id: nanoid() })
   //   }
   //   );
-  // };
-
-  // const handleDeleteBtnClick = id => {
-  //   setContacts((prevContacts) => {
-  //     return prevContacts.filter((item) => item.id !== id)
-  //   })
   // };
 
   const checkIncludesFilterInArray = item => {
@@ -69,7 +53,6 @@ const App = () => {
         <Filter/>
         <ContactList
           contactsFilter={contacts.filter(checkIncludesFilterInArray)}
-          // onDeleteBtnClick={handleDeleteBtnClick}
         />
       </ContactsWrapper>
       }
