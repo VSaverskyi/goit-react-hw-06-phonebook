@@ -66,7 +66,7 @@ const App = () => {
       {contacts.length !== 0 && 
         <ContactsWrapper>
         <h2>Contacts</h2>
-        {/* <Filter filter={filter} onChange={handleFilterChange}/> */}
+        <Filter/>
         <ContactList
           contactsFilter={contacts.filter(checkIncludesFilterInArray)}
           // onDeleteBtnClick={handleDeleteBtnClick}

@@ -1,10 +1,17 @@
 import React from "react";
 import { nanoid } from "nanoid";
-import PropTypes from "prop-types";
 import { FilterWrapper } from "./Filter.styled";
+import { useDispatch, useSelector } from "react-redux";
+import { change } from "redux/filter/slice";
 
-const Filter = ({filter, onChange}) => {
+const Filter = () => {
+    const filter = useSelector(state => state.filter);
+    const dispatch = useDispatch();
     const idForFilter = nanoid();
+
+    const handleFilterChange = (e) => {
+        dispatch(change(e.target.value));
+    }
         
     return (
         <FilterWrapper>
@@ -13,15 +20,10 @@ const Filter = ({filter, onChange}) => {
                 type="text"
                 name="filter"
                 value={filter}
-                onChange={onChange}
+                onChange={handleFilterChange}
             />
         </FilterWrapper>
     )
 }
 
 export default Filter;
-
-Filter.propTypes = {
-    filter: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
-}
