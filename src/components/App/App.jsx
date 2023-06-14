@@ -1,24 +1,13 @@
 // import React, {useState, useEffect} from "react";
 import { Container, ContactsWrapper } from "./App.styled";
 import ContactForm from "components/ContactForm/ContactForm";
-import { nanoid } from "nanoid";
 import ContactList from "components/ContactList/ContactList";
 import Filter from "components/Filter/Filter";
-import { useDispatch, useSelector } from "react-redux";
-import { add } from "redux/contacts/slice";
+import {  useSelector } from "react-redux";
 
 const App = () => {
-  const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
-
-  const handleSubmit = (name, number) => {
-    if (contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
-      return alert(name + ' is already in contacts.');
-    }
-
-    dispatch(add({ name, number, id: nanoid() }));
-  }
 
 
   // const [contacts, setContacts] = useState(getFromLocalStorage('savedContacts') || []);
@@ -72,7 +61,7 @@ const App = () => {
   return (
     <Container>
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={handleSubmit} />
+      <ContactForm />
       
       {contacts.length !== 0 && 
         <ContactsWrapper>
